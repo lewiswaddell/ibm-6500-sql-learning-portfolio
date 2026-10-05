@@ -1,0 +1,222 @@
+---
+title: "Introduction to SQL: Course Completion and Learning Notes"
+subtitle: "IBM6500: Customer Insight Methods and Survey Research"
+author: "Leeann Lewis-Waddell"
+date: today
+format:
+  html:
+    toc: true
+    toc-title: "Contents"
+    toc-depth: 3
+    number-sections: true
+    smooth-scroll: true
+    embed-resources: true
+---
+
+# Course Completion Evidence
+
+![Introduction to SQL Cerificate of Completion](Intro%20to%20SQL%20Certificate.png){fig-align="center" width="800"}
+
+## Learning Notes & Key Takeaways
+
+### Relational Databases
+
+1.  [**Main Ideas:**]{.underline} A relational database stores data in tables that connect through shared information. Rows are records, and columns are fields. Each table needs a unique key for every record. Data types control what each field can hold, and a schema shows how the whole database is designed.
+
+2.  [**Important SQL syntax:**]{.underline}
+
+    - **VARCHAR:** Stores text strings of any length.
+
+    - **INT:** Stores whole numbers from about negative two billion to positive two billion.
+
+    - **NUMERIC:** Stores numbers with decimals, up to 38 digits total.
+
+3.  [**Example:**]{.underline}
+
+``` sql
+SELECT card_num, name, member_year
+FROM patrons;
+```
+
+4.  [**Explanation of the example:**]{.underline} This query returns three fields from the patrons table. The card_num field acts as the key because each library card number belongs to only one patron. The name field would use VARCHAR because it is text. The member_year field would use INT because it is a whole number.
+
+5.  [**CEP application:**]{.underline} For my culminating project, I could organize newsletter data and restaurant data as separate tables. One table might hold subscriber information, and another might hold reservation records. A shared customer ID would connect them. Choosing the right data types matters too. Dates would let me track demand over time, and numeric fields would let me calculate spending or party size.
+
+- [**Databases**]{.underline}
+
+  - Tables look similar to the way spreadsheets are organized, but are more powerful because they can handle more data and are more secure due to encryption.
+
+  - A table is a **component** of a database
+
+  - Tables organize data into rows and columns.
+
+    - **Rows** contain individual data.
+
+    - **Column** describes a specific part of that data.
+
+  - Several tables usually make up a **database**, and they work together through **relationships**.
+
+    - **Relational databases** include tables that share information.
+
+    - This creates **connections** between them.
+
+  - SQL **queries** are questions asked of the database.
+
+- [**Tables**]{.underline}
+
+  - **Table names** should be clear and refer to the data it contains; should be in lowercase and use underscores instead of spaces.
+
+  - Rows are referred to as **records** and columns as **fields**.
+
+  - Each record contains the data for an individual **observation**.
+
+  - **Fields** contain one piece of information for every record in a table.
+
+    - Field names must be typed out when querying a database
+
+      - should be lowercase and use underscores instead of spaces
+
+      - should be singular rather than plural because it refers to the information contained in that field for a single record.
+
+      - two fields in a table cannot have the same name
+
+      - should never share a name with the table they are housed in so that it's clear whether a field or table is being referred to.
+
+  - Tables include a a unique identifier for each record **(key)**.
+
+    - The key value must be *unique* for every record.
+
+- [**Data Types**]{.underline}
+
+  - depends on the specific information stored in the field, such as numbers, text, or dates.
+
+    - consider the type of operations that we want to apply to that information
+
+  - **"string"** is a sequence of characters such as letters, numbers, or punctuation
+
+    - VARCHAR data type is commonly used due to its flexibility to store small or large strings
+
+  - **integer** - stores whole numbers (INT); negative two billion to positive two billion
+
+  - **floats -** numbers that include a fractional part or a decimal point
+
+  - **NUMERIC** data type can store floats with up to 38 digits total, including those before and after the decimal point
+
+  - **schemas** - "blueprints" of databases; shows a database's design, such as what tables are included, any relationships between its tables, and what data type each field can hold
+
+### Querying
+
+1.  [**Main Ideas**]{.underline}: A query is a question I ask the database using keywords like SELECT and FROM. Aliases rename columns, and DISTINCT removes duplicates. A view saves a query as a virtual table that always shows current data. PostgreSQL and SQL Server are two common SQL flavors.
+2.  [**Important SQL syntax:**]{.underline}
+    - **SELECT:** Chooses which fields to return.
+
+    - **FROM:** Names the table the fields come from.
+
+    - **AS:** Creates an alias for a field or names a view.
+
+    - **DISTINCT:** Returns only unique values.
+
+    - **CREATE VIEW:** Saves a query as a virtual table.
+
+    - **Semicolon (;):** Marks the end of a query.
+3.  [**Example:**]{.underline}
+
+``` sql
+CREATE VIEW library_authors AS
+SELECT DISTINCT author AS unique_author
+FROM books;
+```
+
+4.  [**Explanation of the Example:**]{.underline}This query creates a view called library_authors. It pulls every author from the books table but removes duplicates, so each author appears only once. The alias renames the column to unique_author. After the view exists, I can query it with SELECT and FROM just like a regular table.
+5.  [**CEP Application:**]{.underline}For my culminating project, DISTINCT could count unique customers who made reservations. A view could save a query of newsletter subscribers who also booked a table, so I can reuse it as new data comes in.
+
+- queries draw insights from databases; answer questions both within and across relational database tables
+
+- **keywords** are reserved words used to indicate what operation the code will perform
+
+  - `SELECT` : indicates which fields should be selected
+
+  - `FROM` : indicates the table in which these fields are located
+
+  - SELECT statement appears first, followed by the FROM statement
+
+  - end the query with a semicolon to indicate that the query is complete
+
+``` sql
+-- Return all titles from the books table
+SELECT title
+FROM books;
+```
+
+- [**Writing Queries**]{.underline}
+
+  - **aliasing** - renaming columns in our result set, whether for clarity or brevity
+
+  - `DISTINCT` : returns unique values, with no repeats
+
+``` sql
+-- Select unique authors from the books table
+SELECT DISTINCT author
+FROM books;
+```
+
+- ***Saving SQL result sets***
+
+  - **view** is a saved SQL query that acts like a virtual table
+
+    - views don't store data; they store the query, ensuring the results are always up-to-date with the latest database changes
+
+``` sql
+    -- Alias author so that it becomes unique_author
+SELECT DISTINCT author AS unique_author
+FROM books;
+```
+
+- to create a view, use `CREATE VIEW`, followed by the view name, and `AS` to define the query
+
+- once a view is created, query it like a normal table by selecting `FROM` the view
+
+``` sql
+-- Create a view called library_authors
+CREATE VIEW library_authors AS
+SELECT DISTINCT author AS unique_author
+FROM books;
+```
+
+- [**SQL Flavors**]{.underline}
+
+  - *PostgreSQL -* free and open-source relational database system which was originally created at the University of California, Berkeley
+
+  - sponsored by Defense Advanced Research Projects Agency, or DARPA.
+
+  - name "PostgreSQL" refers to both the database system itself and the SQL flavor used with it.
+
+  - *SQL Server* - relational database system available in both free and enterprise versions
+
+    - created by Microsoft, so it pairs well with other Microsoft products.
+
+  - *T-SQL* - Microsoft's proprietary flavor of SQL, used with SQL Server databases.
+
+## Overall Reflection & Future Reference
+
+### Most useful skills
+
+The most useful skills I learned were writing basic queries with SELECT and FROM and cleaning up results with DISTINCT and aliases. Creating views was also helpful because it lets me save a query and reuse it later.
+
+### Most challenging concepts
+
+Data types were the most challenging part for me. It took some practice to understand when to use VARCHAR, INT, or NUMERIC. Learning how tables connect through keys also took time to fully understand.
+
+### How SQL supports marketing and my CEP
+
+SQL makes it easier to pull specific customer data without sorting through large spreadsheets by hand. In digital marketing, it can help track campaign results and identify repeat customers. For survey research, it can organize responses and filter them by group. For my CEP, it could connect newsletter data with reservation data to show what drives restaurant demand.
+
+### Concepts to review again
+
+I plan to keep practicing CREATE VIEW, since the syntax has several parts that need to be in the right order. I also want to review naming conventions and data types so my code stays clean and runs without errors. Writing more queries on my own will help these commands feel natural.
+
+# Appendix: Publication Links
+
+- Github Repository
+
+- Published Introduction to SQL Report
