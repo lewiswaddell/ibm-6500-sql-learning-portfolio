@@ -217,6 +217,6 @@ I plan to keep practicing CREATE VIEW, since the syntax has several parts that n
 
 # Appendix: Publication Links
 
-- Github Repository
+- [Github Repository](https://github.com/lewiswaddell/ibm-6500-sql-learning-portfolio.git)
 
 - Published Introduction to SQL Report
