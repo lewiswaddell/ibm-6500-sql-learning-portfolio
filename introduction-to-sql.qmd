@@ -219,4 +219,4 @@ I plan to keep practicing CREATE VIEW, since the syntax has several parts that n
 
 - [Github Repository](https://github.com/lewiswaddell/ibm-6500-sql-learning-portfolio.git)
 
-- Published Introduction to SQL Report
+- [Published Introduction to SQL Report](https://lewiswaddell.github.io/ibm-6500-sql-learning-portfolio/introduction-to-sql.html)
